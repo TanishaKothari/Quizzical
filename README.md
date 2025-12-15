@@ -2,6 +2,8 @@
 
 A fun and interactive quiz application built with React that tests your knowledge on computer science topics. Challenge yourself with 5 medium-difficulty questions and see how well you score!
 
+🔗 **[Live Demo](https://quizzical-gold-three.vercel.app/)**
+
 ## Features
 
 - **Dynamic Quiz Generation**: Fetches questions from the Open Trivia Database API
