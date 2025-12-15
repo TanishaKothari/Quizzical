@@ -7,11 +7,21 @@ body {
     font-family: 'Inter', sans-serif;
     color: #293264;
     margin: 0;
+    padding: 10px 0;
+    height: 100vh;
+    position: relative;
+}
+
+#root {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    position: relative;
+    min-height: calc(100vh - 40px);
+}
+
+main {
+    width: 100%;
+    max-width: 800px;
 }
 
 /* Yellow blob - top right */
@@ -106,6 +116,10 @@ button:focus-visible {
     width: 104px;
 }
 
+.loading-container {
+    text-align: center;
+}
+
 .question-block {
     margin-bottom: 20px;
 }
@@ -174,4 +188,5 @@ input[type="radio"]:checked + label {
     justify-content: center;
     align-items: center;
     gap: 20px;
+    padding: 0 20px;
 }

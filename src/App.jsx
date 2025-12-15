@@ -58,7 +58,7 @@ function App() {
   function renderScene() {
     if (isLoading) {
       return (
-        <div role="status" aria-live="polite" aria-label="Loading quiz questions">
+        <div className='loading-container' role="status" aria-live="polite" aria-label="Loading quiz questions">
           <p>Loading questions...</p>
         </div>
       )
