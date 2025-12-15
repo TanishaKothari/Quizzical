@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Analytics } from "@vercel/analytics/react"
 import './App.css'
 import Home from './components/Home'
 import Questions from './components/Questions'
@@ -75,7 +76,10 @@ function App() {
   }
 
   return (
-    <main role="main">{renderScene()}</main>
+    <>
+      <main role="main">{renderScene()}</main>
+      <Analytics />
+    </>
   )
 }
 
