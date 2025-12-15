@@ -56,7 +56,11 @@ function App() {
 
   function renderScene() {
     if (isLoading) {
-      return <div>Loading questions...</div>
+      return (
+        <div role="status" aria-live="polite" aria-label="Loading quiz questions">
+          <p>Loading questions...</p>
+        </div>
+      )
     }
     
     if (scene === 'home') {
@@ -71,7 +75,7 @@ function App() {
   }
 
   return (
-    renderScene()
+    <main role="main">{renderScene()}</main>
   )
 }
 

@@ -19,11 +19,14 @@ export default function Questions(props) {
     }
 
     return (
-        <form action={handleSubmit}>
-            {questions}
-            <div style={{textAlign: 'center'}}>
-                <button type='submit' className="submit-btn">Check Answers</button>
-            </div>
-        </form>
+        <section aria-labelledby="quiz-heading">
+            <h2 id="quiz-heading" className="sr-only">Quiz Questions</h2>
+            <form action={handleSubmit} aria-label="Quiz form with 5 questions">
+                {questions}
+                <div style={{textAlign: 'center'}}>
+                    <button type='submit' className="submit-btn" aria-label="Submit your answers and see results">Check Answers</button>
+                </div>
+            </form>
+        </section>
     )
 }

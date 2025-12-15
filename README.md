@@ -11,6 +11,7 @@ A fun and interactive quiz application built with React that tests your knowledg
 - **Instant Feedback**: See correct and incorrect answers highlighted after submission
 - **Score Tracking**: Get your final score and replay as many times as you want, with different question sets each time
 - **Randomized Answers**: Answer options are shuffled using the Fisher-Yates algorithm for fairness
+- **Fully Accessible**: Keyboard navigation, screen reader support, and comprehensive ARIA labels
 
 ## Demo
 
@@ -19,13 +20,21 @@ The app has three main screens:
 2. **Questions Screen**: 5 multiple-choice questions about computer science
 3. **Answers Screen**: Review your answers with correct/incorrect highlighting and your final score
 
+## Accessibility Features
+
+- **Keyboard Navigation**: Full keyboard support with visible focus indicators
+- **Screen Reader Compatible**: Comprehensive ARIA labels and semantic HTML
+- **Focus Management**: Proper focus order and visual feedback
+- **Descriptive Labels**: Clear context for all interactive elements
+- **Live Regions**: Dynamic content updates announced to assistive technologies
+
 ## Technologies Used
 
 - **React 19.2.0**: UI components and state management
 - **Vite**: Fast build tool and dev server
 - **HTML Entities**: Decoding special characters from API responses
 - **Open Trivia Database API**: Question source
-- **CSS3**: Custom styling
+- **CSS3**: Custom styling with accessible focus states
 
 ## Getting Started
 
@@ -83,13 +92,13 @@ Quizzical/
 
 1. **State Management**: The app uses React hooks (`useState`) to manage the current scene (home/questions/answers), loading state, questions data, and selected answers
 2. **API Integration**: Questions are fetched from `https://opentdb.com/api.php` with parameters for amount, category (computer science), difficulty (medium), and type (multiple choice)
-3. **Answer Shuffling**: The Fisher-Yates algorithm ensures random order of answer options
+3. **Answer Shuffling**: The Fisher-Yates algorithm shuffles answer options once when fetching questions, ensuring consistent order across Questions and Answers screens
 4. **Form Handling**: Uses React's form action to collect user answers
 5. **Score Calculation**: Compares selected answers with correct answers to display the final score
+6. **Accessibility**: Implements proper ARIA attributes, semantic HTML, and full keyboard support
 
 ## Upcoming Features
 
-- **Improved Accessibility Support**: Enhanced keyboard navigation, screen reader compatibility, and ARIA labels for a more inclusive user experience
 - **Customizable Quiz Settings**: Choose the number of questions (1-50)
 - **Category Selection**: Pick from various trivia categories beyond computer science
 - **Difficulty Levels**: Select easy, medium, or hard difficulty

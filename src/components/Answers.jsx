@@ -22,12 +22,13 @@ export default function Answers(props) {
     }
 
     return (
-        <>
+        <section aria-labelledby="results-heading">
+            <h2 id="results-heading" className="sr-only">Quiz Results</h2>
             {questions}
-            <div className='score-replay'>
-                <h3>You scored {calculateScore()}/{props.questions.length} correct answers</h3>
-                <button className="replay-btn" onClick={props.onClick}>Play Again</button>
+            <div className='score-replay' role='region' aria-label='Quiz results and actions'>
+                <h3 aria-live="polite">You scored {calculateScore()}/{props.questions.length} correct answers</h3>
+                <button className="replay-btn" onClick={props.onClick} aria-label="Start a new quiz with different questions">Play Again</button>
             </div>
-        </>
+        </section>
     )
 }
