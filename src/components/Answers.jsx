@@ -27,7 +27,8 @@ export default function Answers(props) {
             {questions}
             <div className='score-replay' role='region' aria-label='Quiz results and actions'>
                 <h3 aria-live="polite">You scored {calculateScore()}/{props.questions.length} correct answers</h3>
-                <button className="replay-btn" onClick={props.onClick} aria-label="Start a new quiz with different questions">Play Again</button>
+                <button className="change-settings-btn" onClick={props.onChangeSettings} aria-label="Change quiz settings and start a new quiz">Change Settings</button>
+                <button className="replay-btn" onClick={props.onReplay} aria-label="Start a new quiz with different questions">Play Again</button>
             </div>
         </section>
     )

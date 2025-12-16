@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Analytics } from "@vercel/analytics/react"
 import './App.css'
 import Home from './components/Home'
+import Settings from './components/Settings'
 import Questions from './components/Questions'
 import Answers from './components/Answers'
 
@@ -10,9 +11,11 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
   const [questions, setQuestions] = useState([])
   const [selectedAnswers, setSelectedAnswers] = useState([])
+  const [quizSettings, setQuizSettings] = useState({ amount: 5, category: 'any', difficulty: 'any' })
 
-  async function fetchQuestions() {
-    const res = await fetch('https://opentdb.com/api.php?amount=5&category=18&difficulty=medium&type=multiple')
+  async function fetchQuestions(amount, category, difficulty) {
+    // If category or difficulty are 'any', they should be omitted from the API request
+    const res = await fetch(`https://opentdb.com/api.php?amount=${amount}${category !== 'any' ? `&category=${category}` : ''}${difficulty !== 'any' ? `&difficulty=${difficulty}` : ''}&type=multiple`)
     const data = await res.json()
 
     const questionObjs = data.results.map((question) => {
@@ -38,9 +41,11 @@ function App() {
       return allAnswers
   }
     
-  async function showQuestions() {
+  async function startNewGame(amount, category, difficulty) {
+    setQuizSettings({ amount, category, difficulty })
+
     setIsLoading(true)
-    await fetchQuestions()
+    await fetchQuestions(amount, category, difficulty)
     setIsLoading(false)
     setScene('questions')
   }
@@ -52,7 +57,7 @@ function App() {
 
   function replay() {
     setSelectedAnswers([])
-    showQuestions()
+    startNewGame(quizSettings.amount, quizSettings.category, quizSettings.difficulty)
   }
 
   function renderScene() {
@@ -65,13 +70,16 @@ function App() {
     }
     
     if (scene === 'home') {
-      return <Home onClick={showQuestions} />
+      return <Home onClick={() => setScene('settings')} />
     } 
+    if (scene === 'settings') {
+      return <Settings onStartQuiz={startNewGame} />
+    }
     if (scene === 'questions') {
       return <Questions questions={questions} onSubmit={retrieveAnswers} />
     } 
     if (scene === 'answers') {
-      return <Answers questions={questions} selectedAnswers={selectedAnswers} onClick={replay} />
+      return <Answers questions={questions} selectedAnswers={selectedAnswers} onChangeSettings={() => setScene('settings')} onReplay={replay} />
     }
   }
 

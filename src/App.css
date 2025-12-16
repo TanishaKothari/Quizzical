@@ -88,7 +88,9 @@ button {
 }
 
 /* Focus styles for keyboard navigation */
-button:focus-visible {
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
     outline: 3px solid #293264;
     outline-offset: 2px;
 }
@@ -109,17 +111,85 @@ button:focus-visible {
     justify-self: center;
 }
 
-.replay-btn {
+.change-settings-btn, .replay-btn {
     font-weight: 600;
     border-radius: 10px;
-    height: 30px;
-    width: 104px;
+    height: 40px;
+    width: 120px;
 }
 
 .loading-container {
     text-align: center;
 }
 
+/* Settings Form Styles */
+.settings-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.settings-container h2 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 30px;
+    color: #293264;
+}
+
+.setting-item {
+    margin-bottom: 25px;
+}
+
+.setting-item label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #293264;
+    font-size: 14px;
+}
+
+.setting-item input[type="number"],
+.setting-item select {
+    width: 100%;
+    padding: 10px 15px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: #293264;
+    background-color: #F5F7FB;
+    border: 2px solid #D6DBF5;
+    border-radius: 8px;
+    transition: border-color 0.2s;
+}
+
+.setting-item input[type="number"]:hover,
+.setting-item select:hover {
+    border-color: #4D5B9E;
+}
+
+.setting-item input[type="number"]:focus,
+.setting-item select:focus {
+    border-color: #4D5B9E;
+    background-color: white;
+}
+
+.settings-container button[type="submit"] {
+    width: 100%;
+    height: 52px;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 10px;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+
+.settings-container button[type="submit"]:hover {
+    background-color: #3d4a7e;
+}
+
+/* Question Styles */
 .question-block {
     margin-bottom: 20px;
 }
@@ -152,12 +222,17 @@ input[type="radio"]:focus-visible + label {
     outline-offset: 2px;
 }
 
-label:focus-visible {
+.answers-container label:focus-visible {
     outline: 3px solid #293264;
     outline-offset: 2px;
 }
 
-label, .unselected-answer, .correct-answer, .wrong-answer {
+.answers-container label:hover {
+    background-color: #BFD7FF;
+    cursor: pointer;
+}
+
+.answers-container label, .unselected-answer, .correct-answer, .wrong-answer {
     height: 30px;
     width: auto;
     padding: 0 20px;
@@ -189,4 +264,15 @@ input[type="radio"]:checked + label {
     align-items: center;
     gap: 20px;
     padding: 0 20px;
+}
+
+@media (max-width: 600px) {
+    .settings-container {
+        padding: 20px;
+    }
+    
+    .setting-item input[type="number"],
+    .setting-item select {
+        font-size: 16px; /* Prevents iOS zoom on focus */
+    }
 }
