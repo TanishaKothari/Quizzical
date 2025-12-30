@@ -13,7 +13,12 @@ function App() {
   const [error, setError] = useState(null)
   const [questions, setQuestions] = useState([])
   const [selectedAnswers, setSelectedAnswers] = useState([])
-  const [quizSettings, setQuizSettings] = useState({ amount: 5, category: 'any', difficulty: 'any' })
+  const [quizSettings, setQuizSettings] = useState({ 
+    amount: 5, 
+    category: 'any', 
+    difficulty: 'any',
+    mode: 'untimed'
+  })
 
   async function fetchQuestions(amount, category, difficulty) {
     try {
@@ -68,8 +73,8 @@ function App() {
       return allAnswers
   }
     
-  async function startNewGame(amount, category, difficulty) {
-    setQuizSettings({ amount, category, difficulty })
+  async function startNewGame(amount, category, difficulty, mode) {
+    setQuizSettings({ amount, category, difficulty, mode })
     setError(null)
     setIsLoading(true)
 
@@ -87,7 +92,12 @@ function App() {
   function replay() {
     setSelectedAnswers([])
     setError(null)
-    startNewGame(quizSettings.amount, quizSettings.category, quizSettings.difficulty)
+    startNewGame(
+      quizSettings.amount, 
+      quizSettings.category, 
+      quizSettings.difficulty,
+      quizSettings.mode
+    )
   }
 
   function renderScene() {
@@ -116,7 +126,14 @@ function App() {
       )
     }
     if (scene === 'questions') {
-      return <Questions questions={questions} onSubmit={retrieveAnswers} />
+      return (
+        <Questions 
+          questions={questions} 
+          onSubmit={retrieveAnswers} 
+          isTimed={quizSettings.mode === 'timed'}
+          numberOfQuestions={quizSettings.amount}
+        />
+      )
     } 
     if (scene === 'answers') {
       return <Answers questions={questions} selectedAnswers={selectedAnswers} onChangeSettings={() => setScene('settings')} onReplay={replay} />

@@ -343,6 +343,64 @@ body.dark-mode .error-message {
     color: #ff6b6b;
 }
 
+/* Timer Styles */
+.timer {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: rgba(77, 91, 158, 0.95);
+    color: #F5F7FB;
+    padding: 8px 16px;
+    margin-top: 10px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.timer-icon {
+    font-size: 20px;
+}
+
+.timer-text {
+    font-family: 'Karla', monospace;
+    letter-spacing: 1px;
+}
+
+.timer-warning {
+    background-color: rgba(255, 152, 0, 0.95);
+    animation: pulse-warning 1s ease-in-out infinite;
+}
+
+.timer-critical {
+    background-color: rgba(244, 67, 54, 0.95);
+    animation: pulse-critical 0.5s ease-in-out infinite;
+}
+
+@keyframes pulse-warning {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes pulse-critical {
+    0%, 100% { transform: scale(1); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+    50% { transform: scale(1.08); box-shadow: 0 6px 12px rgba(244, 67, 54, 0.4); }
+}
+
+/* Dark mode timer */
+body.dark-mode .timer {
+    background-color: rgba(108, 99, 255, 0.95);
+}
+
+body.dark-mode .timer-warning {
+    background-color: rgba(255, 167, 38, 0.95);
+}
+
+body.dark-mode .timer-critical {
+    background-color: rgba(239, 83, 80, 0.95);
+}
+
 /* Question Styles */
 .question-block {
     margin-bottom: 20px;
@@ -471,5 +529,14 @@ body.dark-mode .wrong-answer {
     .setting-item input[type="number"],
     .setting-item select {
         font-size: 16px; /* Prevents iOS zoom on focus */
+    }
+
+    .timer {
+        padding: 10px 18px;
+        font-size: 20px;
+    }
+    
+    .timer-icon {
+        font-size: 24px;
     }
 }

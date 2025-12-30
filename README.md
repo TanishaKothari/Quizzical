@@ -1,12 +1,13 @@
 # Quizzical 🎯
 
-A fun and interactive quiz application built with React that tests your knowledge across various topics. Customize your quiz experience to challenge yourself and see how well you score!
+A fun and interactive quiz application built with React that tests your knowledge across various topics. Customize your quiz experience and challenge yourself!
 
 🔗 **[Live Demo](https://quizzical-gold-three.vercel.app/)**
 
 ## Features
 
 - **Customizable Quiz Settings**: Choose from 1-50 questions, 30+ categories, and 3 difficulty levels
+- **Timed Mode**: Challenge yourself with a countdown timer
 - **Dynamic Quiz Generation**: Fetches questions from the Open Trivia Database API
 - **Interactive UI**: Clean, modern interface with smooth transitions
 - **Dark Mode Support**: Toggle between light and dark themes
@@ -84,10 +85,11 @@ Quizzical/
 │   ├── components/
 │   │   ├── Home.jsx          # Landing page component
 │   │   ├── Settings.jsx      # Quiz customization form
-│   │   ├── Questions.jsx     # Quiz questions display
+│   │   ├── Questions.jsx     # Quiz questions display with timer
 │   │   ├── Answers.jsx       # Answer review with scoring
 │   │   ├── QuestionBlock.jsx # Reusable question/answer component
-│   │   └── ThemeToggle.jsx   # Dark mode toggle button
+│   │   ├── ThemeToggle.jsx   # Dark mode toggle button
+│   │   └── Timer.jsx         # Countdown timer component
 │   ├── contexts/
 │   │   └── ThemeContext.jsx  # Theme state management with Context API
 │   ├── App.jsx               # Main app component with state management
@@ -104,10 +106,11 @@ Quizzical/
 1. **State Management**: The app uses React hooks (`useState`) to manage the current scene (home/settings/questions/answers), loading state, questions data, selected answers, and quiz settings
 2. **Theme Management**: Context API provides global theme state accessible to all components
 3. **API Integration**: Questions are fetched from `https://opentdb.com/api.php` with parameters for amount, category, difficulty, and type (multiple choice)
-4. **Answer Shuffling**: The Fisher-Yates algorithm shuffles answer options once when fetching questions, ensuring consistent order across Questions and Answers screens
-5. **Form Handling**: Uses React's form action to collect user answers
-6. **Score Calculation**: Compares selected answers with correct answers to display the final score
-7. **Accessibility**: Implements proper ARIA attributes, semantic HTML, keyboard support, and screen reader compatibility
+4. **Timer System**: In timed mode, a countdown timer allocates 20 seconds per question and auto-submits when time expires
+5. **Answer Shuffling**: The Fisher-Yates algorithm shuffles answer options once when fetching questions, ensuring consistent order across Questions and Answers screens
+6. **Form Handling**: Uses React's form action to collect user answers
+7. **Score Calculation**: Compares selected answers with correct answers to display the final score
+8. **Accessibility**: Implements proper ARIA attributes, semantic HTML, keyboard support, and screen reader compatibility
 
 ## Categories Available
 
@@ -127,9 +130,9 @@ Quizzical/
 
 ## Future Enhancements
 
-- Timer mode for timed challenges
-- Question bookmarking
 - Social sharing of scores
+- Question bookmarking
+- Sound effects
 
 ## Acknowledgments
 

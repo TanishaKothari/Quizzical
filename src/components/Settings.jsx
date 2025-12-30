@@ -3,7 +3,8 @@ export default function Settings(props) {
         const numberOfQuestions = formData.get('number-of-questions')
         const category = formData.get('category-select')
         const difficulty = formData.get('difficulty-select')
-        props.onStartQuiz(numberOfQuestions, category, difficulty)
+        const mode = formData.get('timed-select')
+        props.onStartQuiz(numberOfQuestions, category, difficulty, mode)
     }
 
     return (
@@ -65,6 +66,17 @@ export default function Settings(props) {
                     <option value="easy">Easy</option>
                     <option value="medium">Medium</option>
                     <option value="hard">Hard</option>
+                </select>
+            </div>
+            <div className="setting-item">
+                <label htmlFor="timed-select">Mode:</label>
+                <select
+                    id="timed-select"
+                    name="timed-select"
+                    defaultValue="untimed"
+                >
+                    <option value="untimed">Untimed</option>
+                    <option value="timed">Timed</option>
                 </select>
             </div>
             <button type="submit">Start Quiz</button>
