@@ -90,14 +90,15 @@ Quizzical/
 │   │   ├── Settings.jsx      # Quiz customization form
 │   │   ├── Questions.jsx     # Quiz questions display with timer
 │   │   ├── Answers.jsx       # Answer review with scoring and sharing
-│   │   ├── QuestionBlock.jsx # Reusable question/answer component
+│   │   ├── QuestionBlock.jsx # Reusable question/answer component (memoized)
 │   │   ├── ThemeToggle.jsx   # Dark mode toggle button
 │   │   └── Timer.jsx         # Countdown timer component
 │   ├── contexts/
+│   │   ├── QuizContext.jsx   # Quiz state management with Context API
 │   │   └── ThemeContext.jsx  # Theme state management with Context API
-│   ├── App.jsx               # Main app component with state management
+│   ├── App.jsx               # Main app component with scene routing
 │   ├── App.css               # Global styles with dark mode support
-│   └── main.jsx              # React app entry point with ThemeProvider
+│   └── main.jsx              # React app entry point with providers
 ├── public/                   # Static assets
 ├── index.html                # HTML template
 ├── package.json              # Project dependencies
@@ -114,7 +115,8 @@ Quizzical/
 6. **Form Handling**: Uses React's form action to collect user answers
 7. **Score Calculation**: Compares selected answers with correct answers to display the final score
 8. **Social Sharing**: Uses react-share library for platform-specific sharing and Clipboard API for copy functionality
-9. **Accessibility**: Implements proper ARIA attributes, semantic HTML, keyboard support, and screen reader compatibility
+9. **Performance**: Uses `memo`, `useMemo`, and `useCallback` to optimize rendering and prevent unnecessary calculations
+10. **Accessibility**: Implements proper ARIA attributes, semantic HTML, keyboard support, and screen reader compatibility
 
 ## Categories Available
 
