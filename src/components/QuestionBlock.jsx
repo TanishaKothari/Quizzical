@@ -1,15 +1,16 @@
+import { memo } from 'react';
 import { decode } from 'html-entities';
 
-export default function QuestionBlock(props) {
+function QuestionBlock({questionObj, index, showResults, selectedAnswer}) {
     function getAnswerInfo(answer) {
-        if (!props.showResults) return { className: '', ariaLabel: undefined }
-        if (answer === props.questionObj.correct_answer) {
+        if (!showResults) return { className: '', ariaLabel: undefined }
+        if (answer === questionObj.correct_answer) {
             return {
                 className: 'correct-answer',
                 ariaLabel: `${decode(answer)} - Correct answer`
             }
         }
-        if (props.selectedAnswer === answer) {
+        if (selectedAnswer === answer) {
             return {
                 className: 'wrong-answer',
                 ariaLabel: `${decode(answer)} - Your incorrect answer`
@@ -23,23 +24,23 @@ export default function QuestionBlock(props) {
 
     return (
         <div>
-            <fieldset className="question-block" aria-labelledby={`question-${props.index}-legend`}>
-                <legend id={`question-${props.index}-legend`}>
+            <fieldset className="question-block" aria-labelledby={`question-${index}-legend`}>
+                <legend id={`question-${index}-legend`}>
                     <h3>
-                        <span className="sr-only">Question {props.index + 1}: </span>
-                        {decode(props.questionObj.question)}
+                        <span className="sr-only">Question {index + 1}: </span>
+                        {decode(questionObj.question)}
                     </h3>
                 </legend>
                 <div className="answers-container"
-                    role={props.showResults ? "list" : "radiogroup"}
-                    aria-label={props.showResults ? "Answer options with results" : "Select one answer"}
+                    role={showResults ? "list" : "radiogroup"}
+                    aria-label={showResults ? "Answer options with results" : "Select one answer"}
                 >
-                    {props.questionObj.allAnswers.map((answer, idx) => {
+                    {questionObj.allAnswers.map((answer, idx) => {
                         const answerInfo = getAnswerInfo(answer)
 
                         return (
-                            <div key={idx} role={props.showResults ? "listitem" : undefined}>
-                                {props.showResults ? (
+                            <div key={idx} role={showResults ? "listitem" : undefined}>
+                                {showResults ? (
                                     // Render as disabled button for results view
                                     <button disabled className={answerInfo.className} aria-label={answerInfo.ariaLabel} aria-disabled="true">
                                         {decode(answer)}
@@ -47,14 +48,14 @@ export default function QuestionBlock(props) {
                                 ) : (
                                     // Render as radio input for question view
                                     <>
-                                        <input type='radio' id={`${props.index}-${idx}`} name={`question-${props.index}`} value={decode(answer)} required aria-required="true" />
+                                        <input type='radio' id={`${index}-${idx}`} name={`question-${index}`} value={decode(answer)} required aria-required="true" />
                                         <label
-                                            htmlFor={`${props.index}-${idx}`}
+                                            htmlFor={`${index}-${idx}`}
                                             tabIndex={0} 
                                             onKeyDown={(e) => {
                                                 if (e.key === 'Enter' || e.key === ' ') {
                                                     e.preventDefault()
-                                                    document.getElementById(`${props.index}-${idx}`).click()
+                                                    document.getElementById(`${index}-${idx}`).click()
                                                 }
                                             }}
                                         >
@@ -71,3 +72,5 @@ export default function QuestionBlock(props) {
         </div>
     )
 }
+
+export default memo(QuestionBlock);

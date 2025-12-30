@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useMemo, useCallback } from "react"
 import QuestionBlock from "./QuestionBlock"
 import {
     FacebookShareButton,
@@ -11,15 +11,17 @@ import {
 
 export default function Answers(props) {
     const [copied, setCopied] = useState(false)
-    const questions = props.questions.map((questionObj, index) => {
-        return <QuestionBlock 
-            key={index} 
-            questionObj={questionObj} 
-            index={index} 
-            showResults={true} 
-            selectedAnswer={props.selectedAnswers[index]}
-        />
-    })
+    const questions = useMemo(() => 
+        props.questions.map((questionObj, index) => (
+            <QuestionBlock 
+                key={index} 
+                questionObj={questionObj} 
+                index={index} 
+                showResults={true} 
+                selectedAnswer={props.selectedAnswers[index]}
+            />
+        )
+    ), [props.questions, props.selectedAnswers])
 
     function calculateScore() {
         let countCorrect = 0
@@ -31,14 +33,14 @@ export default function Answers(props) {
         return countCorrect
     }
 
-    const score = calculateScore()
+    const score = useMemo(() => calculateScore(), [props.selectedAnswers, props.questions])
     const total = props.questions.length
     const percentage = Math.round((score / total) * 100)
 
     const shareUrl = 'https://quizzical-gold-three.vercel.app/'
     const shareMessage = `I just scored ${score}/${total} (${percentage}%) on Quizzical! Can you beat my score? 🧠✨`
 
-    async function handleCopyToClipboard() {
+    const handleCopyToClipboard = useCallback(async () => {
         const textToCopy = `${shareMessage}\n${shareUrl}`
         try {
             await navigator.clipboard.writeText(textToCopy)
@@ -47,7 +49,7 @@ export default function Answers(props) {
         } catch (err) {
             console.error('Failed to copy: ', err)
         }
-    }
+    }, [shareMessage, shareUrl])
 
     return (
         <section aria-labelledby="results-heading">
