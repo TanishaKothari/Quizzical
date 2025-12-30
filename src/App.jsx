@@ -24,12 +24,10 @@ function App() {
         </div>
       )
     }
-    
-    if (scene === 'home') {
-      return <Home />
-    } 
-    if (scene === 'settings') {
-      return (
+
+    const scenes = {
+      home: <Home />,
+      settings: (
         <>
           {error && (
             <div className='error-banner' role='alert' aria-live='assertive'>
@@ -39,16 +37,12 @@ function App() {
           )}
           <Settings />
         </>
-      )
+      ),
+      questions: <Questions />,
+      answers: <Answers />
     }
-    if (scene === 'questions') {
-      return (
-        <Questions />
-      )
-    } 
-    if (scene === 'answers') {
-      return <Answers />
-    }
+    
+    return scenes[scene] || <Home />
   }
 
   return (

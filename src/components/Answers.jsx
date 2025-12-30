@@ -1,4 +1,4 @@
-import { useContext, useState, useMemo, useCallback } from "react"
+import { useContext, useState, useMemo } from "react"
 import { QuizContext } from '../contexts/QuizContext'
 import QuestionBlock from "./QuestionBlock"
 import {
@@ -26,7 +26,7 @@ export default function Answers() {
         )
     ), [questions, selectedAnswers])
 
-    function calculateScore() {
+    const score = useMemo(() => {
         let countCorrect = 0
         for (let i = 0; i < questions.length; i++) {
             if (selectedAnswers[i] === questions[i].correct_answer) {
@@ -34,16 +34,14 @@ export default function Answers() {
             }
         }
         return countCorrect
-    }
-
-    const score = useMemo(() => calculateScore(), [selectedAnswers, questions])
+    }, [selectedAnswers, questions])
     const total = questions.length
     const percentage = Math.round((score / total) * 100)
 
     const shareUrl = 'https://quizzical-gold-three.vercel.app/'
     const shareMessage = `I just scored ${score}/${total} (${percentage}%) on Quizzical! Can you beat my score? 🧠✨`
 
-    const handleCopyToClipboard = useCallback(async () => {
+    async function handleCopyToClipboard() {
         const textToCopy = `${shareMessage}\n${shareUrl}`
         try {
             await navigator.clipboard.writeText(textToCopy)
@@ -52,7 +50,7 @@ export default function Answers() {
         } catch (err) {
             console.error('Failed to copy: ', err)
         }
-    }, [shareMessage, shareUrl])
+    }
 
     return (
         <section aria-labelledby="results-heading">
