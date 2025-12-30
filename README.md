@@ -13,6 +13,7 @@ A fun and interactive quiz application built with React that tests your knowledg
 - **Dark Mode Support**: Toggle between light and dark themes
 - **Instant Feedback**: See correct and incorrect answers highlighted after submission
 - **Score Tracking**: Get your final score and replay as many times as you want, with different question sets each time
+- **Social Sharing**: Share your scores on X, Facebook, WhatsApp, or copy to clipboard
 - **Randomized Answers**: Answer options are shuffled using the Fisher-Yates algorithm for fairness
 - **Fully Accessible**: Keyboard navigation, screen reader support, and comprehensive ARIA labels
 - **Mobile Responsive**: Works seamlessly on desktop, tablet, and mobile devices
@@ -38,10 +39,12 @@ The app has four main screens:
 
 - **React 19.2.0**: UI components and state management
 - **Context API**: Global theme state management
+- **React Share**: Social media sharing functionality
 - **Vite**: Fast build tool and dev server
 - **HTML Entities**: Decoding special characters from API responses
 - **Open Trivia Database API**: Question source
 - **CSS3**: Custom styling with accessible focus states and dark mode support
+- **Clipboard API**: Copy-to-clipboard functionality
 
 ## Getting Started
 
@@ -86,7 +89,7 @@ Quizzical/
 │   │   ├── Home.jsx          # Landing page component
 │   │   ├── Settings.jsx      # Quiz customization form
 │   │   ├── Questions.jsx     # Quiz questions display with timer
-│   │   ├── Answers.jsx       # Answer review with scoring
+│   │   ├── Answers.jsx       # Answer review with scoring and sharing
 │   │   ├── QuestionBlock.jsx # Reusable question/answer component
 │   │   ├── ThemeToggle.jsx   # Dark mode toggle button
 │   │   └── Timer.jsx         # Countdown timer component
@@ -110,7 +113,8 @@ Quizzical/
 5. **Answer Shuffling**: The Fisher-Yates algorithm shuffles answer options once when fetching questions, ensuring consistent order across Questions and Answers screens
 6. **Form Handling**: Uses React's form action to collect user answers
 7. **Score Calculation**: Compares selected answers with correct answers to display the final score
-8. **Accessibility**: Implements proper ARIA attributes, semantic HTML, keyboard support, and screen reader compatibility
+8. **Social Sharing**: Uses react-share library for platform-specific sharing and Clipboard API for copy functionality
+9. **Accessibility**: Implements proper ARIA attributes, semantic HTML, keyboard support, and screen reader compatibility
 
 ## Categories Available
 
@@ -130,7 +134,6 @@ Quizzical/
 
 ## Future Enhancements
 
-- Social sharing of scores
 - Question bookmarking
 - Sound effects
 
@@ -138,3 +141,4 @@ Quizzical/
 
 - Questions provided by [Open Trivia Database](https://opentdb.com/)
 - Fonts from [Google Fonts](https://fonts.google.com/) (Inter & Karla)
+- Social sharing powered by [react-share](https://github.com/nygardk/react-share)

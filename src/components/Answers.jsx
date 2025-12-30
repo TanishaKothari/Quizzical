@@ -1,6 +1,16 @@
+import { useState } from "react"
 import QuestionBlock from "./QuestionBlock"
+import {
+    FacebookShareButton,
+    TwitterShareButton,
+    WhatsappShareButton,
+    FacebookIcon,
+    TwitterIcon,
+    WhatsappIcon
+} from 'react-share'
 
 export default function Answers(props) {
+    const [copied, setCopied] = useState(false)
     const questions = props.questions.map((questionObj, index) => {
         return <QuestionBlock 
             key={index} 
@@ -21,14 +31,75 @@ export default function Answers(props) {
         return countCorrect
     }
 
+    const score = calculateScore()
+    const total = props.questions.length
+    const percentage = Math.round((score / total) * 100)
+
+    const shareUrl = 'https://quizzical-gold-three.vercel.app/'
+    const shareMessage = `I just scored ${score}/${total} (${percentage}%) on Quizzical! Can you beat my score? 🧠✨`
+
+    async function handleCopyToClipboard() {
+        const textToCopy = `${shareMessage}\n${shareUrl}`
+        try {
+            await navigator.clipboard.writeText(textToCopy)
+            setCopied(true)
+            setTimeout(() => setCopied(false), 2000)
+        } catch (err) {
+            console.error('Failed to copy: ', err)
+        }
+    }
+
     return (
         <section aria-labelledby="results-heading">
             <h2 id="results-heading" className="sr-only">Quiz Results</h2>
             {questions}
+
             <div className='score-replay' role='region' aria-label='Quiz results and actions'>
-                <h3 aria-live="polite">You scored {calculateScore()}/{props.questions.length} correct answers</h3>
-                <button className="change-settings-btn" onClick={props.onChangeSettings} aria-label="Change quiz settings and start a new quiz">Change Settings</button>
-                <button className="replay-btn" onClick={props.onReplay} aria-label="Start a new quiz with different questions">Play Again</button>
+                <h3 aria-live="polite">You scored {score}/{total} correct answers</h3>
+                <div className="action-buttons">
+                    <button className="change-settings-btn" onClick={props.onChangeSettings} aria-label="Change quiz settings and start a new quiz">Change Settings</button>
+                    <button className="replay-btn" onClick={props.onReplay} aria-label="Start a new quiz with different questions">Play Again</button>
+                </div>
+
+                <div className="share-section" role="region" aria-label="Share your score on social media">
+                    <p className="share-title">Share your score:</p>
+                    <div className="share-buttons">
+                        <TwitterShareButton 
+                            url={shareUrl} 
+                            title={shareMessage}
+                            hashtags={['Quizzical', 'Quiz', 'Trivia']}
+                        >
+                            <TwitterIcon size={40} round />
+                        </TwitterShareButton>
+
+                        <FacebookShareButton 
+                            url={shareUrl} 
+                            quote={shareMessage}
+                        >
+                            <FacebookIcon size={40} round />
+                        </FacebookShareButton>
+
+                        <WhatsappShareButton 
+                            url={shareUrl} 
+                            title={shareMessage}
+                        >
+                            <WhatsappIcon size={40} round />
+                        </WhatsappShareButton>
+
+                        <button 
+                            onClick={handleCopyToClipboard}
+                            className="copy-button"
+                            aria-label="Copy score to clipboard"
+                            title="Copy to clipboard"
+                        >{copied ? "✓" : "📋"}</button>
+                    </div>
+
+                    {copied && (
+                        <p className="copy-message" role="status" aria-live="polite">
+                            Copied to clipboard!
+                        </p>
+                    )}
+                </div>
             </div>
         </section>
     )

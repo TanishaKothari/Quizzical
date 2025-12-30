@@ -589,6 +589,112 @@ body.dark-mode .wrong-answer {
     padding: 0 20px;
 }
 
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.share-section {
+    margin-top: 20px;
+    margin-bottom: 25px;
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(77, 91, 158, 0.05);
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.share-title {
+    font-weight: 600;
+    color: #4D5B9E;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.share-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.share-buttons button {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.share-buttons button:hover {
+    transform: scale(1.1);
+}
+
+.share-buttons button:focus-visible {
+    outline: 3px solid #293264;
+    outline-offset: 4px;
+    border-radius: 50%;
+}
+
+.share-buttons .copy-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #4D5B9E !important;
+    color: #F5F7FB;
+    font-size: 20px;
+    transition: all 0.2s ease;
+}
+
+.copy-message {
+    margin-top: 10px;
+    margin-bottom: 0;
+    color: #4D5B9E;
+    font-weight: 600;
+    font-size: 14px;
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Dark mode styles for share section */
+body.dark-mode .share-section {
+    background-color: rgba(108, 99, 255, 0.1);
+}
+
+body.dark-mode .share-title {
+    color: #6c63ff;
+}
+
+body.dark-mode .share-buttons button:focus-visible {
+    outline-color: #6c63ff;
+}
+
+body.dark-mode .share-buttons .copy-button {
+    background-color: #6c63ff !important;
+}
+
+body.dark-mode .copy-message {
+    color: #6c63ff;
+}
+
 @media (max-width: 600px) {
     .theme-toggle {
         top: 10px;
@@ -614,5 +720,34 @@ body.dark-mode .wrong-answer {
     
     .timer-icon {
         font-size: 24px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .change-settings-btn, .replay-btn {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .score-replay {
+        flex-direction: column;
+    }
+    
+    .share-section {
+        padding: 15px;
+    }
+    
+    .share-buttons button svg {
+        width: 36px !important;
+        height: 36px !important;
+    }
+
+    .share-buttons .copy-button {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
     }
 }
