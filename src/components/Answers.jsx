@@ -1,4 +1,5 @@
-import { useState, useMemo, useCallback } from "react"
+import { useContext, useState, useMemo, useCallback } from "react"
+import { QuizContext } from '../contexts/QuizContext'
 import QuestionBlock from "./QuestionBlock"
 import {
     FacebookShareButton,
@@ -9,32 +10,34 @@ import {
     WhatsappIcon
 } from 'react-share'
 
-export default function Answers(props) {
+export default function Answers() {
+    const { questions, selectedAnswers, setScene, replay } = useContext(QuizContext)
     const [copied, setCopied] = useState(false)
-    const questions = useMemo(() => 
-        props.questions.map((questionObj, index) => (
+
+    const questionElements = useMemo(() => 
+        questions.map((questionObj, index) => (
             <QuestionBlock 
                 key={index} 
                 questionObj={questionObj} 
                 index={index} 
                 showResults={true} 
-                selectedAnswer={props.selectedAnswers[index]}
+                selectedAnswer={selectedAnswers[index]}
             />
         )
-    ), [props.questions, props.selectedAnswers])
+    ), [questions, selectedAnswers])
 
     function calculateScore() {
         let countCorrect = 0
-        for (let i = 0; i < props.questions.length; i++) {
-            if (props.selectedAnswers[i] === props.questions[i].correct_answer) {
+        for (let i = 0; i < questions.length; i++) {
+            if (selectedAnswers[i] === questions[i].correct_answer) {
                 countCorrect++
             }
         }
         return countCorrect
     }
 
-    const score = useMemo(() => calculateScore(), [props.selectedAnswers, props.questions])
-    const total = props.questions.length
+    const score = useMemo(() => calculateScore(), [selectedAnswers, questions])
+    const total = questions.length
     const percentage = Math.round((score / total) * 100)
 
     const shareUrl = 'https://quizzical-gold-three.vercel.app/'
@@ -54,13 +57,13 @@ export default function Answers(props) {
     return (
         <section aria-labelledby="results-heading">
             <h2 id="results-heading" className="sr-only">Quiz Results</h2>
-            {questions}
+            {questionElements}
 
             <div className='score-replay' role='region' aria-label='Quiz results and actions'>
                 <h3 aria-live="polite">You scored {score}/{total} correct answers</h3>
                 <div className="action-buttons">
-                    <button className="change-settings-btn" onClick={props.onChangeSettings} aria-label="Change quiz settings and start a new quiz">Change Settings</button>
-                    <button className="replay-btn" onClick={props.onReplay} aria-label="Start a new quiz with different questions">Play Again</button>
+                    <button className="change-settings-btn" onClick={() => setScene('settings')} aria-label="Change quiz settings and start a new quiz">Change Settings</button>
+                    <button className="replay-btn" onClick={replay} aria-label="Start a new quiz with different questions">Play Again</button>
                 </div>
 
                 <div className="share-section" role="region" aria-label="Share your score on social media">

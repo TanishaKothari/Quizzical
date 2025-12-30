@@ -1,10 +1,15 @@
-export default function Settings(props) {
+import { useContext } from 'react'
+import { QuizContext } from '../contexts/QuizContext'
+
+export default function Settings() {
+    const { startNewGame } = useContext(QuizContext)
+
     function handleSubmit(formData) {
         const numberOfQuestions = formData.get('number-of-questions')
         const category = formData.get('category-select')
         const difficulty = formData.get('difficulty-select')
         const mode = formData.get('timed-select')
-        props.onStartQuiz(numberOfQuestions, category, difficulty, mode)
+        startNewGame(numberOfQuestions, category, difficulty, mode)
     }
 
     return (
