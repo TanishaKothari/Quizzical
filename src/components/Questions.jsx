@@ -41,7 +41,7 @@ export default function Questions() {
             <h2 id="quiz-heading" className="sr-only">Quiz Questions</h2>
 
             {quizSettings.mode === 'timed' && (
-                <div style={{ textAlign: 'center' }}>
+                <div className="timer-container">
                     <Timer totalSeconds={totalTime} onTimeUp={handleTimeUp} />
                 </div>
             )}

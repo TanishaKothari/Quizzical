@@ -420,6 +420,14 @@ body.dark-mode .error-message {
 }
 
 /* Timer Styles */
+.timer-container {
+        position: sticky;
+        z-index: 100;
+        text-align: center;
+        top: 10px;
+        margin-bottom: 15px;
+    }
+
 .timer {
     display: inline-flex;
     align-items: center;
