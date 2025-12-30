@@ -104,7 +104,12 @@ function App() {
     if (isLoading) {
       return (
         <div className='loading-container' role="status" aria-live="polite" aria-label="Loading quiz questions">
-          <p>Loading questions...</p>
+          <div className='loader'>
+            <div className="question-mark q1">?</div>
+            <div className="question-mark q2">?</div>
+            <div className="question-mark q3">?</div>
+          </div>
+          <p className='loading-text'>Loading questions...</p>
         </div>
       )
     }
