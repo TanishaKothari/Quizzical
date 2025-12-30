@@ -5,6 +5,7 @@ import Home from './components/Home'
 import Settings from './components/Settings'
 import Questions from './components/Questions'
 import Answers from './components/Answers'
+import ThemeToggle from './components/ThemeToggle'
 
 function App() {
   const [scene, setScene] = useState('home')
@@ -124,6 +125,7 @@ function App() {
 
   return (
     <>
+      <ThemeToggle />
       <main role="main">{renderScene()}</main>
       <Analytics />
     </>

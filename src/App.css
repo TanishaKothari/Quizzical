@@ -49,6 +49,20 @@ body::after {
     z-index: -1;
 }
 
+/* Body dark mode styles */
+body.dark-mode {
+    background-color: #1a1a2e;
+    color: #eaeaea;
+}
+
+body.dark-mode::before {
+    background-color: #2a2a40; /* Darker yellow blob */
+}
+
+body.dark-mode::after {
+    background-color: #252540; /* Darker blue blob */
+}
+
 /* Visually hidden but accessible to screen readers */
 .sr-only {
     position: absolute;
@@ -115,6 +129,50 @@ select:focus-visible {
     border-radius: 10px;
     height: 40px;
     width: 120px;
+}
+
+.theme-toggle-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(77, 91, 158, 0.9);
+    color: #F5F7FB;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    background-color: rgba(77, 91, 158, 1);
+}
+
+body.dark-mode .theme-toggle {
+    background-color: rgba(108, 99, 255, 0.9);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+body.dark-mode .theme-toggle:hover {
+    background-color: rgba(108, 99, 255, 1);
+}
+
+/* Dark mode buttons */
+body.dark-mode button {
+    background-color: #6c63ff;
+    color: #ffffff;
+}
+
+body.dark-mode button:hover {
+    background-color: #5848d9;
 }
 
 .loading-container {
@@ -188,6 +246,32 @@ select:focus-visible {
     background-color: #3d4a7e;
 }
 
+/* Dark mode styles for settings */
+body.dark-mode .settings-container {
+    background-color: #16213e;
+    color: #eaeaea;
+}
+
+body.dark-mode .settings-container h2 {
+    color: #eaeaea;
+}
+
+body.dark-mode .setting-item label {
+    color: #eaeaea;
+}
+
+body.dark-mode .setting-item input[type="number"],
+body.dark-mode .setting-item select {
+    background-color: #1a1a2e;
+    color: #eaeaea;
+    border-color: #6c63ff;
+}
+
+body.dark-mode .setting-item input[type="number"]:focus,
+body.dark-mode .setting-item select {
+    background-color: #252540;
+}
+
 /* Error Banner Styles */
 .error-banner {
     position: relative;
@@ -249,6 +333,16 @@ select:focus-visible {
     outline-offset: 2px;
 }
 
+/* Dark mode styles for error banner */
+body.dark-mode .error-banner {
+    background-color: #3d1f1f;
+    border-color: #f44336;
+}
+
+body.dark-mode .error-message {
+    color: #ff6b6b;
+}
+
 /* Question Styles */
 .question-block {
     margin-bottom: 20px;
@@ -292,6 +386,13 @@ input[type="radio"]:focus-visible + label {
     cursor: pointer;
 }
 
+/* Dark mode focus states */
+body.dark-mode button:focus-visible,
+body.dark-mode input:focus-visible,
+body.dark-mode select:focus-visible {
+    outline-color: #6c63ff;
+}
+
 .answers-container label, .unselected-answer, .correct-answer, .wrong-answer {
     height: 30px;
     width: auto;
@@ -318,6 +419,34 @@ input[type="radio"]:checked + label {
     background-color: #F8BCBC;
 }
 
+/* Dark mode answers */
+body.dark-mode .answers-container label,
+body.dark-mode .unselected-answer,
+body.dark-mode .correct-answer,
+body.dark-mode .wrong-answer {
+    background-color: #252540;
+    border-color: #6c63ff;
+    color: #eaeaea;
+}
+
+body.dark-mode .answers-container label:hover {
+    background-color: #3a3a5c;
+}
+
+body.dark-mode input[type="radio"]:checked + label {
+    background-color: #6c63ff;
+}
+
+body.dark-mode .correct-answer {
+    background-color: #2d5f3f;
+    border-color: #4caf50;
+}
+
+body.dark-mode .wrong-answer {
+    background-color: #5f2d2d;
+    border-color: #f44336;
+}
+
 .score-replay {
     display: flex;
     justify-content: center;
@@ -327,6 +456,14 @@ input[type="radio"]:checked + label {
 }
 
 @media (max-width: 600px) {
+    .theme-toggle {
+        top: 10px;
+        right: 10px;
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+    }
+    
     .settings-container {
         padding: 20px;
     }
