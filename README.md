@@ -10,7 +10,7 @@ A fun and interactive quiz application built with React that tests your knowledg
 - **Timed Mode**: Challenge yourself with a countdown timer
 - **Dynamic Quiz Generation**: Fetches questions from the Open Trivia Database API
 - **Interactive UI**: Clean, modern interface with smooth transitions
-- **Sound Effects**: Immersive audio feedback for game start, win, and lose events
+- **Sound Effects**: Audio feedback for game start, answer selection, timer warning, win, and lose events
 - **Dark Mode Support**: Toggle between light and dark themes
 - **Instant Feedback**: See correct and incorrect answers highlighted after submission
 - **Score Tracking**: Get your final score and replay as many times as you want, with different question sets each time
@@ -107,7 +107,9 @@ Quizzical/
 │   └── sounds/               # Audio files for game events
 │       ├── start.wav
 │       ├── win.wav
-│       └── lose.wav
+│       ├── lose.wav
+│       ├── select.wav
+│       └── timer-warning.mp3
 ├── index.html                # HTML template
 ├── package.json              # Project dependencies
 └── vite.config.js            # Vite configuration
@@ -122,7 +124,7 @@ Quizzical/
 5. **Answer Shuffling**: The Fisher-Yates algorithm shuffles answer options once when fetching questions, ensuring consistent order across Questions and Answers screens
 6. **Form Handling**: Uses React's form action to collect user answers
 7. **Score Calculation**: Compares selected answers with correct answers to display the final score
-8. **Sound Effects**: Lazy-loaded audio files provide feedback for game start, perfect scores (win), and failing scores (lose)
+8. **Sound Effects**: Lazy-loaded audio files provide feedback for game start, answer selection, timer warning, perfect scores (win), and failing scores (lose)
 9. **Social Sharing**: Uses react-share library for platform-specific sharing and Clipboard API for copy functionality
 10. **Performance**: Uses `memo`, `useMemo`, and `useCallback` to optimize rendering and prevent unnecessary calculations
 11. **Accessibility**: Implements proper ARIA attributes, semantic HTML, keyboard support, and screen reader compatibility

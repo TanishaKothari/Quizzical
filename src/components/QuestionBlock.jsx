@@ -1,7 +1,9 @@
 import { memo } from 'react';
-import { decode } from 'html-entities';
+import useSoundEffects from '../hooks/useSoundEffects';
 
 function QuestionBlock({questionObj, index, showResults, selectedAnswer}) {
+    const { playSound } = useSoundEffects()
+
     function getAnswerInfo(answer) {
         if (!showResults) return { className: '', ariaLabel: undefined }
         if (answer === questionObj.correct_answer) {
@@ -48,7 +50,15 @@ function QuestionBlock({questionObj, index, showResults, selectedAnswer}) {
                                 ) : (
                                     // Render as radio input for question view
                                     <>
-                                        <input type='radio' id={`${index}-${idx}`} name={`question-${index}`} value={answer} required aria-required="true" />
+                                        <input 
+                                            type='radio' 
+                                            id={`${index}-${idx}`} 
+                                            name={`question-${index}`} 
+                                            value={answer} 
+                                            onChange={() => playSound('select')}
+                                            required 
+                                            aria-required="true" 
+                                        />
                                         <label
                                             htmlFor={`${index}-${idx}`}
                                             tabIndex={0} 

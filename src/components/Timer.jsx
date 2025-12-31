@@ -1,12 +1,21 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
+import useSoundEffects from "../hooks/useSoundEffects"
 
 export default function Timer({ totalSeconds, onTimeUp }) {
     const [secondsLeft, setSecondsLeft] = useState(totalSeconds)
+    const { playSound } = useSoundEffects()
+    const warningSoundPlayed = useRef(false)
 
     useEffect(() => {
         if (secondsLeft <= 0) {
             onTimeUp()
             return
+        }
+
+        // Play warning sound once when 17 seconds are left
+        if (secondsLeft === 17 && !warningSoundPlayed.current) {
+            playSound('timerWarning')
+            warningSoundPlayed.current = true
         }
 
         const timer = setInterval(() => {

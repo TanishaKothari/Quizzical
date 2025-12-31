@@ -4,7 +4,9 @@ export default function useSoundEffects() {
     const soundsRef = useRef({
         start: null,
         win: null,
-        lose: null
+        lose: null,
+        select: null,
+        timerWarning: null
     })
 
     const playSound = useCallback((soundType) => {
@@ -13,7 +15,14 @@ export default function useSoundEffects() {
             const soundPaths = {
                 start: '/sounds/start.wav',
                 win: '/sounds/win.wav',
-                lose: '/sounds/lose.wav'
+                lose: '/sounds/lose.wav',
+                select: '/sounds/select.wav',
+                timerWarning: '/sounds/timer-warning.mp3'
+            }
+
+            if (!soundPaths[soundType]) {
+                console.warn(`Sound type "${soundType}" not found`)
+                return
             }
 
             const audio = new Audio(soundPaths[soundType])
