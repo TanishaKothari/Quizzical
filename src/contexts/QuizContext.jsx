@@ -1,9 +1,13 @@
 import { createContext, useState } from "react"
+import { decode } from "html-entities"
+import useSoundEffects from "../hooks/useSoundEffects"
 
 const QuizContext = createContext()
 
 export default function QuizProvider({ children }) {
-    const [scene, setScene] = useState('home')
+  const { playSound } = useSoundEffects()
+
+  const [scene, setScene] = useState('home')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
   const [questions, setQuestions] = useState([])
@@ -42,9 +46,16 @@ export default function QuizProvider({ children }) {
       }
       
       const questionObjs = data.results.map((question) => {
+        // Decode the correct answer so it matches the form values
+        const decodedCorrectAnswer = decode(question.correct_answer)
+        const decodedIncorrectAnswers = question.incorrect_answers.map(ans => decode(ans))
+
         return {
           ...question,
-          allAnswers: shuffleAnswers(question.correct_answer, question.incorrect_answers)
+          question: decode(question.question),
+          correct_answer: decodedCorrectAnswer,
+          incorrect_answers: decodedIncorrectAnswers,
+          allAnswers: shuffleAnswers(decodedCorrectAnswer, decodedIncorrectAnswers)
         }
       })
       setQuestions(questionObjs)
@@ -76,7 +87,10 @@ export default function QuizProvider({ children }) {
     const success = await fetchQuestions(amount, category, difficulty)
     setIsLoading(false)
 
-    if (success) setScene('questions')
+    if (success) {
+      playSound('start')
+      setScene('questions')
+    }
   }
 
   function retrieveAnswers(answers) {

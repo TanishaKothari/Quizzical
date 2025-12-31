@@ -7,18 +7,18 @@ function QuestionBlock({questionObj, index, showResults, selectedAnswer}) {
         if (answer === questionObj.correct_answer) {
             return {
                 className: 'correct-answer',
-                ariaLabel: `${decode(answer)} - Correct answer`
+                ariaLabel: `${answer} - Correct answer`
             }
         }
         if (selectedAnswer === answer) {
             return {
                 className: 'wrong-answer',
-                ariaLabel: `${decode(answer)} - Your incorrect answer`
+                ariaLabel: `${answer} - Your incorrect answer`
             }
         }
         return {
             className: 'unselected-answer',
-            ariaLabel: `${decode(answer)} - Not selected`
+            ariaLabel: `${answer} - Not selected`
         }
     }
 
@@ -28,7 +28,7 @@ function QuestionBlock({questionObj, index, showResults, selectedAnswer}) {
                 <legend id={`question-${index}-legend`}>
                     <h3>
                         <span className="sr-only">Question {index + 1}: </span>
-                        {decode(questionObj.question)}
+                        {questionObj.question}
                     </h3>
                 </legend>
                 <div className="answers-container"
@@ -43,12 +43,12 @@ function QuestionBlock({questionObj, index, showResults, selectedAnswer}) {
                                 {showResults ? (
                                     // Render as disabled button for results view
                                     <button disabled className={answerInfo.className} aria-label={answerInfo.ariaLabel} aria-disabled="true">
-                                        {decode(answer)}
+                                        {answer}
                                     </button>
                                 ) : (
                                     // Render as radio input for question view
                                     <>
-                                        <input type='radio' id={`${index}-${idx}`} name={`question-${index}`} value={decode(answer)} required aria-required="true" />
+                                        <input type='radio' id={`${index}-${idx}`} name={`question-${index}`} value={answer} required aria-required="true" />
                                         <label
                                             htmlFor={`${index}-${idx}`}
                                             tabIndex={0} 
@@ -59,7 +59,7 @@ function QuestionBlock({questionObj, index, showResults, selectedAnswer}) {
                                                 }
                                             }}
                                         >
-                                            {decode(answer)}
+                                            {answer}
                                         </label>
                                     </>
                                 )}

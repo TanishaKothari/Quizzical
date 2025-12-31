@@ -1,6 +1,7 @@
-import { useContext, useState, useMemo } from "react"
+import { useContext, useState, useMemo, useEffect } from "react"
 import { QuizContext } from '../contexts/QuizContext'
 import QuestionBlock from "./QuestionBlock"
+import useSoundEffects from "../hooks/useSoundEffects"
 import {
     FacebookShareButton,
     TwitterShareButton,
@@ -13,6 +14,7 @@ import {
 export default function Answers() {
     const { questions, selectedAnswers, setScene, replay } = useContext(QuizContext)
     const [copied, setCopied] = useState(false)
+    const { playSound } = useSoundEffects()
 
     const questionElements = useMemo(() => 
         questions.map((questionObj, index) => (
@@ -37,6 +39,14 @@ export default function Answers() {
     }, [selectedAnswers, questions])
     const total = questions.length
     const percentage = Math.round((score / total) * 100)
+
+    useEffect(() => {
+        if (score === total) {
+            playSound('win')
+        } else if (score === 0) {
+            playSound('lose')
+        }
+    }, [score, total, playSound])
 
     const shareUrl = 'https://quizzical-gold-three.vercel.app/'
     const shareMessage = `I just scored ${score}/${total} (${percentage}%) on Quizzical! Can you beat my score? 🧠✨`

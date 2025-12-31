@@ -10,6 +10,7 @@ A fun and interactive quiz application built with React that tests your knowledg
 - **Timed Mode**: Challenge yourself with a countdown timer
 - **Dynamic Quiz Generation**: Fetches questions from the Open Trivia Database API
 - **Interactive UI**: Clean, modern interface with smooth transitions
+- **Sound Effects**: Immersive audio feedback for game start, win, and lose events
 - **Dark Mode Support**: Toggle between light and dark themes
 - **Instant Feedback**: See correct and incorrect answers highlighted after submission
 - **Score Tracking**: Get your final score and replay as many times as you want, with different question sets each time
@@ -44,6 +45,7 @@ The app has four main screens:
 - **HTML Entities**: Decoding special characters from API responses
 - **Open Trivia Database API**: Question source
 - **CSS3**: Custom styling with accessible focus states and dark mode support
+- **HTML5 Audio API**: Sound effects for enhanced user experience
 - **Clipboard API**: Copy-to-clipboard functionality
 
 ## Getting Started
@@ -96,10 +98,16 @@ Quizzical/
 │   ├── contexts/
 │   │   ├── QuizContext.jsx   # Quiz state management with Context API
 │   │   └── ThemeContext.jsx  # Theme state management with Context API
+│   ├── hooks/
+│   │   └── useSoundEffects.jsx # Custom hook for sound effects (lazy loading)
 │   ├── App.jsx               # Main app component with scene routing
 │   ├── App.css               # Global styles with dark mode support
 │   └── main.jsx              # React app entry point with providers
-├── public/                   # Static assets
+├── public/
+│   └── sounds/               # Audio files for game events
+│       ├── start.wav
+│       ├── win.wav
+│       └── lose.wav
 ├── index.html                # HTML template
 ├── package.json              # Project dependencies
 └── vite.config.js            # Vite configuration
@@ -114,9 +122,10 @@ Quizzical/
 5. **Answer Shuffling**: The Fisher-Yates algorithm shuffles answer options once when fetching questions, ensuring consistent order across Questions and Answers screens
 6. **Form Handling**: Uses React's form action to collect user answers
 7. **Score Calculation**: Compares selected answers with correct answers to display the final score
-8. **Social Sharing**: Uses react-share library for platform-specific sharing and Clipboard API for copy functionality
-9. **Performance**: Uses `memo`, `useMemo`, and `useCallback` to optimize rendering and prevent unnecessary calculations
-10. **Accessibility**: Implements proper ARIA attributes, semantic HTML, keyboard support, and screen reader compatibility
+8. **Sound Effects**: Lazy-loaded audio files provide feedback for game start, perfect scores (win), and failing scores (lose)
+9. **Social Sharing**: Uses react-share library for platform-specific sharing and Clipboard API for copy functionality
+10. **Performance**: Uses `memo`, `useMemo`, and `useCallback` to optimize rendering and prevent unnecessary calculations
+11. **Accessibility**: Implements proper ARIA attributes, semantic HTML, keyboard support, and screen reader compatibility
 
 ## Categories Available
 
@@ -137,7 +146,6 @@ Quizzical/
 ## Future Enhancements
 
 - Question bookmarking
-- Sound effects
 
 ## Acknowledgments
 
