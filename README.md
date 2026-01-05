@@ -8,6 +8,7 @@ A fun and interactive quiz application built with React that tests your knowledg
 
 - **Customizable Quiz Settings**: Choose from 1-50 questions, 30+ categories, and 3 difficulty levels
 - **Timed Mode**: Challenge yourself with a countdown timer
+- **Question Bookmarking**: Save interesting questions to review later, persisted via localStorage
 - **Dynamic Quiz Generation**: Fetches questions from the Open Trivia Database API
 - **Interactive UI**: Clean, modern interface with smooth transitions
 - **Sound Effects**: Audio feedback for game start, answer selection, timer warning, win, and lose events
@@ -21,11 +22,12 @@ A fun and interactive quiz application built with React that tests your knowledg
 
 ## Demo
 
-The app has four main screens:
+The app has five main screens:
 1. **Home Screen**: Welcome page with a "Start Quiz" button
 2. **Settings Screen**: Customize your quiz (number of questions, category, difficulty)
 3. **Questions Screen**: Interactive quiz with multiple-choice questions
 4. **Answers Screen**: Review your answers with correct/incorrect highlighting and your final score
+5. **Bookmarks Screen**: Review your saved questions and their correct answers
 
 ## Accessibility Features
 
@@ -40,6 +42,7 @@ The app has four main screens:
 
 - **React 19.2.0**: UI components and state management
 - **Context API**: Global theme state management
+- **Local Storage API**: Persistent storage for user bookmarks
 - **React Share**: Social media sharing functionality
 - **Vite**: Fast build tool and dev server
 - **HTML Entities**: Decoding special characters from API responses
@@ -92,6 +95,7 @@ Quizzical/
 │   │   ├── Settings.jsx      # Quiz customization form
 │   │   ├── Questions.jsx     # Quiz questions display with timer
 │   │   ├── Answers.jsx       # Answer review with scoring and sharing
+│   │   ├── Bookmarks.jsx     # Saved questions review screen
 │   │   ├── QuestionBlock.jsx # Reusable question/answer component (memoized)
 │   │   ├── ThemeToggle.jsx   # Dark mode toggle button
 │   │   └── Timer.jsx         # Countdown timer component
@@ -128,6 +132,7 @@ Quizzical/
 9. **Social Sharing**: Uses react-share library for platform-specific sharing and Clipboard API for copy functionality
 10. **Performance**: Uses `memo`, `useMemo`, and `useCallback` to optimize rendering and prevent unnecessary calculations
 11. **Accessibility**: Implements proper ARIA attributes, semantic HTML, keyboard support, and screen reader compatibility
+12. **Persistence**: Bookmarks are saved to the browser's `localStorage`, allowing them to persist across sessions.
 
 ## Categories Available
 
@@ -144,10 +149,6 @@ Quizzical/
 - Geography
 - History
 - And 12 more!
-
-## Future Enhancements
-
-- Question bookmarking
 
 ## Acknowledgments
 

@@ -1,4 +1,4 @@
-import { createContext, useState } from "react"
+import { createContext, useState, useEffect } from "react"
 import { decode } from "html-entities"
 import useSoundEffects from "../hooks/useSoundEffects"
 
@@ -18,6 +18,28 @@ export default function QuizProvider({ children }) {
     difficulty: 'any',
     mode: 'untimed'
   })
+  const [bookmarks, setBookmarks] = useState(() => {
+    const saved = localStorage.getItem('bookmarks')
+    return saved ? JSON.parse(saved) : []
+  })
+
+  // Persist bookmarks to localStorage when they change
+  useEffect(() => {
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks))
+  }, [bookmarks])
+
+  function toggleBookmark(questionObj) {
+    setBookmarks(prevBookmarks => {
+      const isBookmarked = prevBookmarks.find(q => q.question === questionObj.question)
+      if (isBookmarked) {
+        // Remove bookmark
+        return prevBookmarks.filter(q => q.question !== questionObj.question)
+      } else {
+        // Add bookmark
+        return [...prevBookmarks, questionObj]
+      }
+    })
+  }
 
   async function fetchQuestions(amount, category, difficulty) {
     try {
@@ -117,6 +139,8 @@ export default function QuizProvider({ children }) {
         questions,
         selectedAnswers,
         quizSettings,
+        bookmarks,
+        toggleBookmark,
         startNewGame,
         retrieveAnswers,
         replay

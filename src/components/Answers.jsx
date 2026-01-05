@@ -12,7 +12,7 @@ import {
 } from 'react-share'
 
 export default function Answers() {
-    const { questions, selectedAnswers, setScene, replay } = useContext(QuizContext)
+    const { questions, selectedAnswers, setScene, replay, bookmarks } = useContext(QuizContext)
     const [copied, setCopied] = useState(false)
     const { playSound } = useSoundEffects()
 
@@ -72,6 +72,9 @@ export default function Answers() {
                 <div className="action-buttons">
                     <button className="change-settings-btn" onClick={() => setScene('settings')} aria-label="Change quiz settings and start a new quiz">Change Settings</button>
                     <button className="replay-btn" onClick={replay} aria-label="Start a new quiz with different questions">Play Again</button>
+                    {bookmarks.length > 0 && (
+                        <button className="view-bookmarks-btn" onClick={() => setScene('bookmarks')} aria-label="View bookmarked questions">View Bookmarks ({bookmarks.length})</button>
+                    )}
                 </div>
 
                 <div className="share-section" role="region" aria-label="Share your score on social media">

@@ -1,8 +1,15 @@
-import { memo } from 'react';
+import { memo, useContext } from 'react';
+import { QuizContext } from '../contexts/QuizContext';
 import useSoundEffects from '../hooks/useSoundEffects';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBookmark as solidBookmark } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark as regularBookmark } from '@fortawesome/free-regular-svg-icons';
 
 function QuestionBlock({questionObj, index, showResults, selectedAnswer}) {
     const { playSound } = useSoundEffects()
+    const { bookmarks, toggleBookmark } = useContext(QuizContext)
+
+    const isBookmarked = bookmarks.some(q => q.question === questionObj.question)
 
     function getAnswerInfo(answer) {
         if (!showResults) return { className: '', ariaLabel: undefined }
@@ -25,14 +32,25 @@ function QuestionBlock({questionObj, index, showResults, selectedAnswer}) {
     }
 
     return (
-        <div>
+        <div className="question-container">
             <fieldset className="question-block" aria-labelledby={`question-${index}-legend`}>
-                <legend id={`question-${index}-legend`}>
-                    <h3>
-                        <span className="sr-only">Question {index + 1}: </span>
-                        {questionObj.question}
-                    </h3>
-                </legend>
+                <div className="question-header">
+                    <legend id={`question-${index}-legend`}>
+                        <h3>
+                            <span className="sr-only">Question {index + 1}: </span>
+                            {questionObj.question}
+                        </h3>
+                    </legend>
+                    <button 
+                        type="button"
+                        className={`bookmark-btn ${isBookmarked ? 'active' : ''}`}
+                        onClick={() => toggleBookmark(questionObj)}
+                        aria-label={isBookmarked ? "Remove from bookmarks" : "Add to bookmarks"}
+                        title={isBookmarked ? "Remove from bookmarks" : "Add to bookmarks"}
+                    >
+                        <FontAwesomeIcon icon={isBookmarked ? solidBookmark : regularBookmark} />
+                    </button>
+                </div>
                 <div className="answers-container"
                     role={showResults ? "list" : "radiogroup"}
                     aria-label={showResults ? "Answer options with results" : "Select one answer"}

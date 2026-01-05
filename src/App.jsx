@@ -7,6 +7,7 @@ import Settings from './components/Settings'
 import Questions from './components/Questions'
 import Answers from './components/Answers'
 import ThemeToggle from './components/ThemeToggle'
+import Bookmarks from './components/Bookmarks'
 
 function App() {
   const { scene, setScene, isLoading, error, setError } = useContext(QuizContext)
@@ -39,7 +40,8 @@ function App() {
         </>
       ),
       questions: <Questions />,
-      answers: <Answers />
+      answers: <Answers />,
+      bookmarks: <Bookmarks />
     }
     
     return scenes[scene] || <Home />
