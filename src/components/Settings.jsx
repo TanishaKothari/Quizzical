@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { QuizContext } from '../contexts/QuizContext'
 
 export default function Settings() {
-    const { startNewGame } = useContext(QuizContext)
+    const { startNewGame, setScene } = useContext(QuizContext)
 
     function handleSubmit(formData) {
         const numberOfQuestions = formData.get('number-of-questions')
@@ -14,6 +14,15 @@ export default function Settings() {
 
     return (
         <form action={handleSubmit} className="settings-container" aria-labelledby="settings-title">
+            <button 
+                type="button"
+                className="back-btn" 
+                onClick={() => setScene('home')}
+                aria-label="Go to home"
+            >
+                ← Home
+            </button>
+            
             <h2 id="settings-title">Settings</h2>
             <div className="setting-item">
                 <label htmlFor="number-of-questions">Number of Questions:</label>

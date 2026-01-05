@@ -4,7 +4,7 @@ import QuestionBlock from "./QuestionBlock"
 import Timer from "./Timer"
 
 export default function Questions() {
-    const { questions, retrieveAnswers, quizSettings } = useContext(QuizContext)
+    const { questions, retrieveAnswers, quizSettings, setScene } = useContext(QuizContext)
     const formRef = useRef(null)
 
     // Calculate time: 20 seconds per question
@@ -36,6 +36,12 @@ export default function Questions() {
         }
     }
 
+    function handleChangeSettings() {
+        if (window.confirm('Are you sure you want to change settings? Your current progress will be lost.')) {
+            setScene('settings')
+        }
+    }
+
     return (
         <section aria-labelledby="quiz-heading">
             <h2 id="quiz-heading" className="sr-only">Quiz Questions</h2>
@@ -48,8 +54,22 @@ export default function Questions() {
 
             <form ref={formRef} action={handleSubmit} aria-label={`Quiz form with ${quizSettings.amount} questions`}>
                 {questionElements}
-                <div style={{textAlign: 'center'}}>
-                    <button type='submit' className="submit-btn" aria-label="Submit your answers and see results">Check Answers</button>
+                <div className="action-buttons">
+                    <button 
+                        type="button"
+                        className="change-settings-btn" 
+                        onClick={handleChangeSettings}
+                        aria-label="Change quiz settings"
+                    >
+                        Change Settings
+                    </button>
+                    <button 
+                        type='submit' 
+                        className="submit-btn" 
+                        aria-label="Submit your answers and see results"
+                    >
+                        Check Answers
+                    </button>
                 </div>
             </form>
         </section>
