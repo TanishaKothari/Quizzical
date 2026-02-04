@@ -293,6 +293,13 @@ body.dark-mode button:hover {
     animation: pulse 1.5s ease-in-out infinite;
 }
 
+.loading-subtext {
+    font-size: 14px;
+    color: #4D5B9E;
+    margin-top: 10px;
+    opacity: 0.8;
+}
+
 @keyframes pulse {
     0%, 100% {
         opacity: 0.6;
@@ -327,7 +334,7 @@ body.dark-mode .question-mark {
     color: #6c63ff;
 }
 
-body.dark-mode .loading-text {
+body.dark-mode .loading-text,  body.dark-mode .loading-subtext {
     color: #6c63ff;
 }
 

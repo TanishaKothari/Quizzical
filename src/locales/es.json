@@ -10,6 +10,7 @@
       "changeSettings": "Ajustes de cambios",
       "submitAnswers": "Respuestas de cheque",
       "loading": "Cargando preguntas...",
+      "translationNote": "La primera traducción puede tardar hasta 60 segundos mientras el servicio se activa.",
       "aiDisclaimer": "Contenido traducido por IA. Puede contener inexactitudes."
     },
     "settings": {

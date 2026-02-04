@@ -43,22 +43,51 @@ export default function QuizProvider({ children }) {
   }
 
   async function translateText(text, targetLang) {
-    const res = await fetch(import.meta.env.VITE_TRANSLATE_URL, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({ q: text, source: 'en', target: targetLang, format: 'text' })
-    })
-    if (!res.ok) throw new Error('translate failed')
-    const data = await res.json()
-    return data.translatedText || text
+    const maxRetries = 3
+    const retryDelay = 2000 // 2 seconds
+    
+    for (let attempt = 0; attempt < maxRetries; attempt++) {
+      try {
+        const res = await fetch(import.meta.env.VITE_TRANSLATE_URL, {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({ q: text, source: 'en', target: targetLang, format: 'text' })
+        })
+        
+        if (!res.ok) {
+          const errorData = await res.json().catch(() => ({}))
+          console.warn(`Translation attempt ${attempt + 1} failed:`, errorData)
+          
+          if (attempt < maxRetries - 1) {
+            await new Promise(resolve => setTimeout(resolve, retryDelay))
+            continue
+          }
+          throw new Error('Translation service unavailable')
+        }
+        
+        const data = await res.json()
+        return data.translatedText || text
+      } catch (error) {
+        console.error(`Translation error on attempt ${attempt + 1}:`, error)
+        if (attempt < maxRetries - 1) {
+          await new Promise(resolve => setTimeout(resolve, retryDelay))
+          continue
+        }
+        return text // Fallback to original English text
+      }
+    }
+    return text
   }
 
   async function translateQuestions(questionObjs, targetLang) {
     if (targetLang === 'en') return questionObjs
+
+    // Show a notice that translation might take a moment
+    console.log('Translating questions... This may take up to 60 seconds on first use.')
     return Promise.all(questionObjs.map(async (q) => {
       try {
         const question = await translateText(q.question, targetLang)

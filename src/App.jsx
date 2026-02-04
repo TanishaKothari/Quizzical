@@ -25,6 +25,9 @@ function App() {
             <div className="question-mark q3">?</div>
           </div>
           <p className='loading-text'>{t('common.loading')}</p>
+          {i18n.language !== 'en' && (
+            <p className='loading-subtext'>{t('common.translationNote')}</p>
+          )}
         </div>
       )
     }

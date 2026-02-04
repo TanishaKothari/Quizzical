@@ -10,6 +10,7 @@
         "changeSettings": "Change Settings",
         "submitAnswers": "Check Answers",
         "loading": "Loading questions...",
+        "translationNote": "First translation may take up to 60 seconds while service wakes up.",
         "aiDisclaimer": "Content translated by AI. May contain inaccuracies."
       },
       "settings": {
