@@ -1,25 +1,17 @@
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import dotenv from 'dotenv'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-
-dotenv.config({ path: path.join(__dirname, '../../.env.local') })
 
 const basePath = path.join(__dirname, '../locales/en.json')
 const BASE = JSON.parse(fs.readFileSync(basePath, 'utf8')).translation
 const TARGET = process.argv[2] || 'es'
-const API = process.env.VITE_TRANSLATE_URL
 
 async function translateText(text) {
-  const res = await fetch(API, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ q: text, source: 'en', target: TARGET, format: 'text' })
-  })
+  const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|${TARGET}`)
   const data = await res.json()
-  return data.translatedText || text
+  return data.responseData?.translatedText || text
 }
 
 async function walk(obj) {

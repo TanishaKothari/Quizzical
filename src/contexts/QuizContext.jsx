@@ -43,34 +43,23 @@ export default function QuizProvider({ children }) {
   }
 
   async function translateText(text, targetLang) {
-    const maxRetries = 3
-    const retryDelay = 2000 // 2 seconds
+    const maxRetries = 2
+    const retryDelay = 1000 // 1 second
     
     for (let attempt = 0; attempt < maxRetries; attempt++) {
       try {
-        const res = await fetch(import.meta.env.VITE_TRANSLATE_URL, {
-          method: 'POST',
-          mode: 'cors',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({ q: text, source: 'en', target: targetLang, format: 'text' })
-        })
+        const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|${targetLang}`)
         
-        if (!res.ok) {
-          const errorData = await res.json().catch(() => ({}))
-          console.warn(`Translation attempt ${attempt + 1} failed:`, errorData)
-          
+        if (!res.ok) {         
           if (attempt < maxRetries - 1) {
             await new Promise(resolve => setTimeout(resolve, retryDelay))
             continue
           }
-          throw new Error('Translation service unavailable')
+          return text
         }
         
         const data = await res.json()
-        return data.translatedText || text
+        return data.responseData?.translatedText || text
       } catch (error) {
         console.error(`Translation error on attempt ${attempt + 1}:`, error)
         if (attempt < maxRetries - 1) {
@@ -86,8 +75,6 @@ export default function QuizProvider({ children }) {
   async function translateQuestions(questionObjs, targetLang) {
     if (targetLang === 'en') return questionObjs
 
-    // Show a notice that translation might take a moment
-    console.log('Translating questions... This may take up to 60 seconds on first use.')
     return Promise.all(questionObjs.map(async (q) => {
       try {
         const question = await translateText(q.question, targetLang)

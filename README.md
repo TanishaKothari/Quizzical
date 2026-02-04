@@ -52,7 +52,7 @@ The app has five main screens:
 - **HTML5 Audio API**: Sound effects for enhanced user experience
 - **Clipboard API**: Copy-to-clipboard functionality
 - **i18next + react-i18next**: UI translations and local management
-- **LibreTranslate**: Machine translation API for questions/options and locale generation
+- **MyMemory Translation API**: Machine translation API for questions/options and locale generation
 
 ## Getting Started
 
@@ -74,17 +74,12 @@ cd Quizzical
 npm install
 ```
 
-3. Create a `.env.local` file with your translation endpoint:
-   ```bash
-  VITE_TRANSLATE_URL=https://your-translate-instance.onrender.com/translate
-  ```
-
-4. Start the development server:
+3. Start the development server:
 ```bash
 npm run dev
 ```
 
-5. Open your browser and navigate to `http://localhost:5173`
+4. Open your browser and navigate to `http://localhost:5173`
 
 ## Available Scripts
 
@@ -114,7 +109,7 @@ Quizzical/
 │   ├── hooks/
 │   │   └── useSoundEffects.jsx   # Custom hook for sound effects (lazy loading)
 │   ├── scripts/
-│   │   └── generate-locale.js    # Script to auto-generate translation to a language
+│   │   └── generate-locale.js    # Script to auto-generate translations
 │   ├── locales/
 │   │   └── en.json               # English (base) strings for translation
 │   │   └── es.json               # Spanish (generated) translation
@@ -129,7 +124,6 @@ Quizzical/
 │       ├── lose.wav
 │       ├── select.wav
 │       └── timer-warning.mp3
-├── .env.local                    # Environment variables
 ├── index.html                    # HTML template
 ├── package.json                  # Project dependencies
 └── vite.config.js                # Vite configuration
@@ -149,7 +143,7 @@ Quizzical/
 10. **Translation Flow**:
   - User selects language via [LanguageSwitcher](src/components/LanguageSwitcher.jsx)
   - UI strings loaded from pre-generated locale files via i18next
-  - Quiz questions/answers translated in real-time via LibreTranslate API
+  - Quiz questions/answers translated in real-time via MyMemory Translation API
   - Translated content cached in state for the session
 11. **Performance**: Uses `memo`, `useMemo`, and `useCallback` to optimize rendering and prevent unnecessary calculations
 12. **Accessibility**: Implements proper ARIA attributes, semantic HTML, keyboard support, and screen reader compatibility
@@ -173,12 +167,12 @@ Quizzical/
 
 ## Known Limitations
 
-- **Translation Service**: Render free tier sleeps after 15 minutes of inactivity; first request may take 30+ seconds to wake up
 - **Translation Quality**: AI translations may have inaccuracies; disclaimer displayed for non-English languages
+- **Rate Limits**: MyMemory API free tier limited to 1000 requests/day; translations may fail if limit exceeded
 
 ## Acknowledgments
 
 - Questions provided by [Open Trivia Database](https://opentdb.com/)
 - Fonts from [Google Fonts](https://fonts.google.com/) (Inter & Karla)
 - Social sharing powered by [react-share](https://github.com/nygardk/react-share)
-- Translation powered by [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate)
+- Translation powered by [MyMemory Translation API](https://mymemory.translated.net/)
