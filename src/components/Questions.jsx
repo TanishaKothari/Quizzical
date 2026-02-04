@@ -1,10 +1,12 @@
 import { useContext, useRef } from "react"
+import { useTranslation } from 'react-i18next'
 import { QuizContext } from '../contexts/QuizContext'
 import QuestionBlock from "./QuestionBlock"
 import Timer from "./Timer"
 
 export default function Questions() {
     const { questions, retrieveAnswers, quizSettings, setScene } = useContext(QuizContext)
+    const { t } = useTranslation()
     const formRef = useRef(null)
 
     // Calculate time: 20 seconds per question
@@ -37,7 +39,7 @@ export default function Questions() {
     }
 
     function handleChangeSettings() {
-        if (window.confirm('Are you sure you want to change settings? Your current progress will be lost.')) {
+        if (window.confirm(t('questions.confirmChange'))) {
             setScene('settings')
         }
     }
@@ -52,23 +54,23 @@ export default function Questions() {
                 </div>
             )}
 
-            <form ref={formRef} action={handleSubmit} aria-label={`Quiz form with ${quizSettings.amount} questions`}>
+            <form ref={formRef} action={handleSubmit} aria-label={t('questions.formLabel', { count: quizSettings.amount })}>
                 {questionElements}
                 <div className="action-buttons">
                     <button 
                         type="button"
                         className="change-settings-btn" 
                         onClick={handleChangeSettings}
-                        aria-label="Change quiz settings"
+                        aria-label={t('common.changeSettings')}
                     >
-                        Change Settings
+                        {t('common.changeSettings')}
                     </button>
                     <button 
                         type='submit' 
                         className="submit-btn" 
-                        aria-label="Submit your answers and see results"
+                        aria-label={t('common.submitAnswers')}
                     >
-                        Check Answers
+                        {t('common.submitAnswers')}
                     </button>
                 </div>
             </form>

@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Analytics } from "@vercel/analytics/react"
 import './App.css'
 import { QuizContext } from './contexts/QuizContext.jsx'
@@ -8,9 +9,11 @@ import Questions from './components/Questions'
 import Answers from './components/Answers'
 import ThemeToggle from './components/ThemeToggle'
 import Bookmarks from './components/Bookmarks'
+import LanguageSwitcher from './components/LanguageSwitcher'
 
 function App() {
   const { scene, setScene, isLoading, error, setError } = useContext(QuizContext)
+  const { i18n, t } = useTranslation()
 
   function renderScene() {
     if (isLoading) {
@@ -21,7 +24,7 @@ function App() {
             <div className="question-mark q2">?</div>
             <div className="question-mark q3">?</div>
           </div>
-          <p className='loading-text'>Loading questions...</p>
+          <p className='loading-text'>{t('common.loading')}</p>
         </div>
       )
     }
@@ -49,6 +52,12 @@ function App() {
 
   return (
     <>
+      <LanguageSwitcher />
+      {i18n.language !== 'en' && (
+        <p className="ai-disclaimer" role="note" aria-live="polite">
+          {t('common.aiDisclaimer')}
+        </p>
+      )}
       <ThemeToggle />
       <main role="main">{renderScene()}</main>
       <Analytics />

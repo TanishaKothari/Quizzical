@@ -1,0 +1,73 @@
+{
+    "translation": {
+        "common": {
+        "title": "Quizzical",
+        "tagline": "Your ultimate quiz experience",
+        "startQuiz": "Start Quiz",
+        "viewBookmarks": "View Bookmarks ({{count}})",
+        "back": "← Back",
+        "home": "← Home",
+        "changeSettings": "Change Settings",
+        "submitAnswers": "Check Answers",
+        "loading": "Loading questions...",
+        "aiDisclaimer": "Content translated by AI. May contain inaccuracies."
+      },
+      "settings": {
+        "heading": "Settings",
+        "numberOfQuestions": "Number of Questions:",
+        "category": "Category:",
+        "anyCategory": "Any Category",
+        "categories": {
+          "generalKnowledge": "General Knowledge",
+          "books": "Books",
+          "film": "Film",
+          "music": "Music",
+          "musicals": "Musicals & Theatres",
+          "television": "Television",
+          "videoGames": "Video Games",
+          "boardGames": "Board Games",
+          "science": "Science & Nature",
+          "computers": "Computers",
+          "mathematics": "Mathematics",
+          "mythology": "Mythology",
+          "sports": "Sports",
+          "geography": "Geography",
+          "history": "History",
+          "politics": "Politics",
+          "art": "Art",
+          "celebrities": "Celebrities",
+          "animals": "Animals",
+          "vehicles": "Vehicles",
+          "comics": "Comics",
+          "gadgets": "Gadgets",
+          "anime": "Japanese Anime & Manga",
+          "cartoons": "Cartoon & Animations"
+        },
+        "difficulty": "Difficulty:",
+        "anyDifficulty": "Any Difficulty",
+        "difficultyEasy": "Easy",
+        "difficultyMedium": "Medium",
+        "difficultyHard": "Hard",
+        "mode": "Mode:",
+        "untimed": "Untimed",
+        "timed": "Timed",
+        "start": "Start Quiz"
+      },
+      "bookmarks": {
+        "heading": "Your Bookmarks",
+        "empty": "You haven't bookmarked any questions yet."
+      },
+      "answers": {
+        "score": "You scored {{score}}/{{total}} correct answers",
+        "shareTitle": "Share your score:",
+        "copied": "Copied to clipboard!",
+        "changeSettings": "Change Settings",
+        "playAgain": "Play Again",
+        "viewBookmarks": "View Bookmarks ({{count}})"
+      },
+      "questions": {
+        "confirmChange": "Are you sure you want to change settings? Your current progress will be lost.",
+        "formLabel": "Quiz form with {{count}} questions"
+      }
+    }
+}

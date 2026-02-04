@@ -1,4 +1,5 @@
 import { useContext, useState, useMemo, useEffect } from "react"
+import { useTranslation } from 'react-i18next'
 import { QuizContext } from '../contexts/QuizContext'
 import QuestionBlock from "./QuestionBlock"
 import useSoundEffects from "../hooks/useSoundEffects"
@@ -13,6 +14,7 @@ import {
 
 export default function Answers() {
     const { questions, selectedAnswers, setScene, replay, bookmarks } = useContext(QuizContext)
+    const { t } = useTranslation()
     const [copied, setCopied] = useState(false)
     const { playSound } = useSoundEffects()
 
@@ -49,7 +51,7 @@ export default function Answers() {
     }, [score, total, playSound])
 
     const shareUrl = 'https://quizzical-gold-three.vercel.app/'
-    const shareMessage = `I just scored ${score}/${total} (${percentage}%) on Quizzical! Can you beat my score? 🧠✨`
+    const shareMessage = t('answers.score', { score, total }) + ' ' + 'Can you beat my score? 🧠✨'
 
     async function handleCopyToClipboard() {
         const textToCopy = `${shareMessage}\n${shareUrl}`
@@ -68,17 +70,17 @@ export default function Answers() {
             {questionElements}
 
             <div className='score-replay' role='region' aria-label='Quiz results and actions'>
-                <h3 aria-live="polite">You scored {score}/{total} correct answers</h3>
+                <h3 aria-live="polite">{t('answers.score', { score, total })}</h3>
                 <div className="action-buttons">
-                    <button className="change-settings-btn" onClick={() => setScene('settings')} aria-label="Change quiz settings and start a new quiz">Change Settings</button>
-                    <button className="replay-btn" onClick={replay} aria-label="Start a new quiz with different questions">Play Again</button>
+                    <button className="change-settings-btn" onClick={() => setScene('settings')} aria-label={t('answers.changeSettings')}>{t('answers.changeSettings')}</button>
+                    <button className="replay-btn" onClick={replay} aria-label={t('answers.playAgain')}>{t('answers.playAgain')}</button>
                     {bookmarks.length > 0 && (
-                        <button className="view-bookmarks-btn" onClick={() => setScene('bookmarks')} aria-label="View bookmarked questions">View Bookmarks ({bookmarks.length})</button>
+                        <button className="view-bookmarks-btn" onClick={() => setScene('bookmarks')} aria-label={t('answers.viewBookmarks', { count: bookmarks.length })}>{t('answers.viewBookmarks', { count: bookmarks.length })}</button>
                     )}
                 </div>
 
                 <div className="share-section" role="region" aria-label="Share your score on social media">
-                    <p className="share-title">Share your score:</p>
+                    <p className="share-title">{t('answers.shareTitle')}</p>
                     <div className="share-buttons">
                         <TwitterShareButton 
                             url={shareUrl} 
@@ -112,7 +114,7 @@ export default function Answers() {
 
                     {copied && (
                         <p className="copy-message" role="status" aria-live="polite">
-                            Copied to clipboard!
+                            {t('answers.copied')}
                         </p>
                     )}
                 </div>

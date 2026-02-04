@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react"
 import { decode } from "html-entities"
 import useSoundEffects from "../hooks/useSoundEffects"
+import i18n from "../i18n"
 
 const QuizContext = createContext()
 
@@ -41,6 +42,41 @@ export default function QuizProvider({ children }) {
     })
   }
 
+  async function translateText(text, targetLang) {
+    const res = await fetch(import.meta.env.VITE_TRANSLATE_URL, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({ q: text, source: 'en', target: targetLang, format: 'text' })
+    })
+    if (!res.ok) throw new Error('translate failed')
+    const data = await res.json()
+    return data.translatedText || text
+  }
+
+  async function translateQuestions(questionObjs, targetLang) {
+    if (targetLang === 'en') return questionObjs
+    return Promise.all(questionObjs.map(async (q) => {
+      try {
+        const question = await translateText(q.question, targetLang)
+        const correct_answer = await translateText(q.correct_answer, targetLang)
+        const incorrect_answers = await Promise.all(q.incorrect_answers.map(ans => translateText(ans, targetLang)))
+        return {
+          ...q,
+          question,
+          correct_answer,
+          incorrect_answers,
+          allAnswers: shuffleAnswers(correct_answer, incorrect_answers)
+        }
+      } catch {
+        return q
+      }
+    }))
+  }  
+
   async function fetchQuestions(amount, category, difficulty) {
     try {
       setError(null)
@@ -80,7 +116,9 @@ export default function QuizProvider({ children }) {
           allAnswers: shuffleAnswers(decodedCorrectAnswer, decodedIncorrectAnswers)
         }
       })
-      setQuestions(questionObjs)
+
+      const localized = await translateQuestions(questionObjs, i18n.language)
+      setQuestions(localized)
       return true
     } catch (error) {
       setError('Unable to connect to the server. Please check your internet connection and try again.')

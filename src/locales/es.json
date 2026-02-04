@@ -1,0 +1,73 @@
+{
+  "translation": {
+    "common": {
+      "title": "Quizzical",
+      "tagline": "Su experiencia de última prueba",
+      "startQuiz": "Empieza Quiz",
+      "viewBookmarks": "Ver marcadores ({{count}})",
+      "back": "← Volver",
+      "home": "← Inicio",
+      "changeSettings": "Ajustes de cambios",
+      "submitAnswers": "Respuestas de cheque",
+      "loading": "Cargando preguntas...",
+      "aiDisclaimer": "Contenido traducido por IA. Puede contener inexactitudes."
+    },
+    "settings": {
+      "heading": "Ajustes",
+      "numberOfQuestions": "Número de preguntas:",
+      "category": "Categoría:",
+      "anyCategory": "Cualquier categoría",
+      "categories": {
+        "generalKnowledge": "Conocimientos generales",
+        "books": "Libros",
+        "film": "Film",
+        "music": "Música",
+        "musicals": "Musicales & Teatros",
+        "television": "Televisión",
+        "videoGames": "Juegos de vídeo",
+        "boardGames": "Juegos de mesa",
+        "science": "Ciencia y Naturaleza",
+        "computers": "Computadoras",
+        "mathematics": "Matemáticas",
+        "mythology": "Mitología",
+        "sports": "Deportes",
+        "geography": "Geografía",
+        "history": "Historia",
+        "politics": "Política",
+        "art": "Arte",
+        "celebrities": "Celebridades",
+        "animals": "Animales",
+        "vehicles": "Vehículos",
+        "comics": "Comics",
+        "gadgets": "Gadgets",
+        "anime": "Japonés Anime & Manga",
+        "cartoons": "Caricaturas"
+      },
+      "difficulty": "Dificultad:",
+      "anyDifficulty": "Cualquier dificultad",
+      "difficultyEasy": "Fácil",
+      "difficultyMedium": "Mediana",
+      "difficultyHard": "Duro",
+      "mode": "Modo:",
+      "untimed": "Sin límite de tiempo",
+      "timed": "Cronometrado",
+      "start": "Empieza Quiz"
+    },
+    "bookmarks": {
+      "heading": "Sus marcadores",
+      "empty": "Aún no has hecho ninguna pregunta."
+    },
+    "answers": {
+      "score": "Has marcado las respuestas correctas",
+      "shareTitle": "Comparte tu puntuación:",
+      "copied": "Copied to clipboard!",
+      "changeSettings": "Ajustes de cambios",
+      "playAgain": "Juega de nuevo",
+      "viewBookmarks": "Ver marcadores ({{count}})"
+    },
+    "questions": {
+      "confirmChange": "¿Estás seguro de que quieres cambiar la configuración? Su progreso actual se perderá.",
+      "formLabel": "Forma de Quiz con preguntas"
+    }
+  }
+}

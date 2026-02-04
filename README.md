@@ -17,6 +17,7 @@ A fun and interactive quiz application built with React that tests your knowledg
 - **Score Tracking**: Get your final score and replay as many times as you want, with different question sets each time
 - **Social Sharing**: Share your scores on X, Facebook, WhatsApp, or copy to clipboard
 - **Randomized Answers**: Answer options are shuffled using the Fisher-Yates algorithm for fairness
+- **Multi-language**: English base plus auto-generated locales; shows an AI translation disclaimer for non-English languages
 - **Fully Accessible**: Keyboard navigation, screen reader support, and comprehensive ARIA labels
 - **Mobile Responsive**: Works seamlessly on desktop, tablet, and mobile devices
 
@@ -50,6 +51,8 @@ The app has five main screens:
 - **CSS3**: Custom styling with accessible focus states and dark mode support
 - **HTML5 Audio API**: Sound effects for enhanced user experience
 - **Clipboard API**: Copy-to-clipboard functionality
+- **i18next + react-i18next**: UI translations and local management
+- **LibreTranslate**: Machine translation API for questions/options and locale generation
 
 ## Getting Started
 
@@ -71,12 +74,17 @@ cd Quizzical
 npm install
 ```
 
-3. Start the development server:
+3. Create a `.env.local` file with your translation endpoint:
+   ```bash
+  VITE_TRANSLATE_URL=https://your-translate-instance.onrender.com/translate
+  ```
+
+4. Start the development server:
 ```bash
 npm run dev
 ```
 
-4. Open your browser and navigate to `http://localhost:5173`
+5. Open your browser and navigate to `http://localhost:5173`
 
 ## Available Scripts
 
@@ -91,32 +99,40 @@ npm run dev
 Quizzical/
 ├── src/
 │   ├── components/
-│   │   ├── Home.jsx          # Landing page component
-│   │   ├── Settings.jsx      # Quiz customization form
-│   │   ├── Questions.jsx     # Quiz questions display with timer
-│   │   ├── Answers.jsx       # Answer review with scoring and sharing
-│   │   ├── Bookmarks.jsx     # Saved questions review screen
-│   │   ├── QuestionBlock.jsx # Reusable question/answer component (memoized)
-│   │   ├── ThemeToggle.jsx   # Dark mode toggle button
-│   │   └── Timer.jsx         # Countdown timer component
+│   │   ├── Home.jsx              # Landing page component
+│   │   ├── Settings.jsx          # Quiz customization form
+│   │   ├── Questions.jsx         # Quiz questions display with timer
+│   │   ├── Answers.jsx           # Answer review with scoring and sharing
+│   │   ├── Bookmarks.jsx         # Saved questions review screen
+│   │   ├── QuestionBlock.jsx     # Reusable question/answer component (memoized)
+│   │   ├── ThemeToggle.jsx       # Dark mode toggle button
+│   │   ├── Timer.jsx             # Countdown timer component
+│   │   └── LanguageSwitcher.jsx  # Language change option
 │   ├── contexts/
-│   │   ├── QuizContext.jsx   # Quiz state management with Context API
-│   │   └── ThemeContext.jsx  # Theme state management with Context API
+│   │   ├── QuizContext.jsx       # Quiz state management with Context API
+│   │   └── ThemeContext.jsx      # Theme state management with Context API
 │   ├── hooks/
-│   │   └── useSoundEffects.jsx # Custom hook for sound effects (lazy loading)
-│   ├── App.jsx               # Main app component with scene routing
-│   ├── App.css               # Global styles with dark mode support
-│   └── main.jsx              # React app entry point with providers
+│   │   └── useSoundEffects.jsx   # Custom hook for sound effects (lazy loading)
+│   ├── scripts/
+│   │   └── generate-locale.js    # Script to auto-generate translation to a language
+│   ├── locales/
+│   │   └── en.json               # English (base) strings for translation
+│   │   └── es.json               # Spanish (generated) translation
+│   ├── i18n.js                   # i18next initialization and resources
+│   ├── App.jsx                   # Main app component with scene routing
+│   ├── App.css                   # Global styles with dark mode support
+│   └── main.jsx                  # React app entry point with providers
 ├── public/
-│   └── sounds/               # Audio files for game events
+│   └── sounds/                   # Audio files for game events
 │       ├── start.wav
 │       ├── win.wav
 │       ├── lose.wav
 │       ├── select.wav
 │       └── timer-warning.mp3
-├── index.html                # HTML template
-├── package.json              # Project dependencies
-└── vite.config.js            # Vite configuration
+├── .env.local                    # Environment variables
+├── index.html                    # HTML template
+├── package.json                  # Project dependencies
+└── vite.config.js                # Vite configuration
 ```
 
 ## How It Works
@@ -130,9 +146,14 @@ Quizzical/
 7. **Score Calculation**: Compares selected answers with correct answers to display the final score
 8. **Sound Effects**: Lazy-loaded audio files provide feedback for game start, answer selection, timer warning, perfect scores (win), and failing scores (lose)
 9. **Social Sharing**: Uses react-share library for platform-specific sharing and Clipboard API for copy functionality
-10. **Performance**: Uses `memo`, `useMemo`, and `useCallback` to optimize rendering and prevent unnecessary calculations
-11. **Accessibility**: Implements proper ARIA attributes, semantic HTML, keyboard support, and screen reader compatibility
-12. **Persistence**: Bookmarks are saved to the browser's `localStorage`, allowing them to persist across sessions.
+10. **Translation Flow**:
+  - User selects language via [LanguageSwitcher](src/components/LanguageSwitcher.jsx)
+  - UI strings loaded from pre-generated locale files via i18next
+  - Quiz questions/answers translated in real-time via LibreTranslate API
+  - Translated content cached in state for the session
+11. **Performance**: Uses `memo`, `useMemo`, and `useCallback` to optimize rendering and prevent unnecessary calculations
+12. **Accessibility**: Implements proper ARIA attributes, semantic HTML, keyboard support, and screen reader compatibility
+13. **Persistence**: Bookmarks are saved to the browser's `localStorage`, allowing them to persist across sessions.
 
 ## Categories Available
 
@@ -150,8 +171,14 @@ Quizzical/
 - History
 - And 12 more!
 
+## Known Limitations
+
+- **Translation Service**: Render free tier sleeps after 15 minutes of inactivity; first request may take 30+ seconds to wake up
+- **Translation Quality**: AI translations may have inaccuracies; disclaimer displayed for non-English languages
+
 ## Acknowledgments
 
 - Questions provided by [Open Trivia Database](https://opentdb.com/)
 - Fonts from [Google Fonts](https://fonts.google.com/) (Inter & Karla)
 - Social sharing powered by [react-share](https://github.com/nygardk/react-share)
+- Translation powered by [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate)
